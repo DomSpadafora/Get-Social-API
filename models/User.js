@@ -1,33 +1,40 @@
 const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
+
 
 // Schema to create Student model
-const studentSchema = new Schema(
+const userSchema = new Schema(
   {
-    first: {
+    username: {
       type: String,
-      required: true,
-      max_length: 50,
+      unique: true,
+      required: 'Username is needed',
+      trim: true,
     },
-    last: {
+    email: {
       type: String,
-      required: true,
-      max_length: 50,
+      unique: true,
+      required: 'Password is needed',
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
-    github: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    assignments: [assignmentSchema],
+    students: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: {
-      getters: true,
+      virtuals: true,
     },
+    id: false,
   }
 );
 
-const Student = model('student', studentSchema);
+//Need to create a virtual called friendCount that retrieves the length of the user's friends array field on query???
 
-module.exports = Student;
+
+
+const User = model('user', userSchema);
+
+module.exports = User;

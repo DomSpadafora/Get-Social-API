@@ -16,10 +16,10 @@ const userSchema = new Schema(
       required: 'Password is needed',
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
-    students: [
+    friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'User' 
       },
     ],
   },

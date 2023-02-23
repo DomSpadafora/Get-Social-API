@@ -18,9 +18,8 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
-    reaction: {
-      //array of nested documents created with the reactionSchema
-    },
+    reaction:  [reactionSchema]
+      //array of reactions created with the reactionSchema 
 
   },
   {
@@ -30,6 +29,10 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
+
+thoughtSchema.virtual('reactionCount').get(function () { 
+  return this.reactions.maxlength
+})
 
 const Thought = model('Thought', thoughtSchema);
 

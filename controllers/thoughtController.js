@@ -12,11 +12,13 @@ module.exports = {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .then((thought) =>
-        !course
+        !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
           : res.json(thought)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err)
+        res.status(500).json(err)});
   },
   // Create a thought and add thought to user's array of thoughts
   createThought(req, res) {
@@ -96,7 +98,10 @@ module.exports = {
           ? res.status(404).json({ message: "No thought frind with ID!" })
           : res.json(thought)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => { res.status(500).json(err)
+      console.log(err)});
+      
+      
   },
   //delete reaction
   removeReaction(req, res) {

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 //need to create Reaction (Schema Only)
 
@@ -20,6 +20,8 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      // get: timestamp => addDateSuffix(timestamp)
+
     },
   },
   {
@@ -41,7 +43,8 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      //use a getter method to format the timestamp on query
+      // get: timestamp => addDateSuffix(timestamp)
+
     },
     username: {
       type: String,
